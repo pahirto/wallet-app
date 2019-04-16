@@ -1,38 +1,31 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 
 const FilterBar = () => {
-  const [selected, handleChange] = useState("option1");
-  const buttons = ["Vše", "Příjmy", "Výdaje"];
+  const buttonValues = ["Vse", "Prijmy", "Vydaje"];
+  const [selected, setCurSelection] = useState(buttonValues[0]);
+
+  const handleOptionChange = ({ target: { value } }) => {
+    // setCurSelection(o.target.value); //other option
+    setCurSelection(value);
+  };
 
   return (
     <div>
       <p>Zobrazit:</p>
       <form>
-        <div className="form-check">
-          <label>
-            <input
-              type="radio"
-              name="filter-bar-button"
-              value="option1"
-              checked={selected === "option1"}
-              className="form-check-input"
-            />
-            Option 1
-          </label>
-        </div>
-
-        <div className="form-check">
-          <label>
-            <input
-              type="radio"
-              name="filter-bar-button"
-              value="option2"
-              checked={selected === "option1"}
-              className="form-check-input"
-            />
-            Option 2
-          </label>
-        </div>
+        {buttonValues.map((value, key) => (
+          <div key={key}>
+            <label>
+              <input
+                type="radio"
+                value={value}
+                checked={selected === value}
+                onChange={handleOptionChange}
+              />
+              {value}
+            </label>
+          </div>
+        ))}
       </form>
     </div>
   );

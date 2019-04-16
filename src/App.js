@@ -1,7 +1,5 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 
-import HelloWorld from "./components/HelloWorld";
-import Transaction from "./components/Transaction";
 import TransactionPage from "./components/transactionPage/TransactionPage";
 
 const initList = [
