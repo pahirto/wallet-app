@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 
 import HelloWorld from "./components/HelloWorld";
 import Transaction from "./components/Transaction";
+import TransactionPage from "./components/transactionPage/TransactionPage";
 
 const initList = [
   { value: 123, currency: "CZK" },
@@ -19,12 +20,9 @@ const App = () => {
   };
 
   return (
-    <Fragment>
-      {transactionList.map(({ value, currency }, key) => (
-        <Transaction key={key} value={value} currency={currency} />
-      ))}
-      <button onClick={handleClick}>Add transaction</button>
-    </Fragment>
+    <>
+      <TransactionPage />
+    </>
   );
 };
 
