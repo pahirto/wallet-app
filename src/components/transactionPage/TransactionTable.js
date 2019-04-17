@@ -4,14 +4,14 @@ import "react-table/react-table.css";
 import { Button, ButtonGroup } from "reactstrap";
 import TransactionDataServiceMock from "../../mockingDataService/TransactionDataServiceMock";
 
-const TransactionTable = () => {
-  const [data, modifyData] = useState(TransactionDataServiceMock());
+const TransactionTable = ({ data }) => {
+  const [_data, modifyData] = useState(data); //ASK - data vs _data
 
   return (
     <div>
       {/* https://medium.freecodecamp.org/how-to-build-a-real-time-editable-datagrid-in-react-c13a37b646ec */}
       <ReactTable
-        data={data}
+        data={_data}
         columns={[
           {
             Header: "Datum",
@@ -25,7 +25,8 @@ const TransactionTable = () => {
           {
             Header: "Castka",
             id: "trans_table_cols_amount",
-            accessor: ({ amount }) => <div>{amount},-</div>
+            accessor: "amount",
+            Cell: ({ value }) => <div>{value},-</div>
           },
           {
             Header: "Akce",

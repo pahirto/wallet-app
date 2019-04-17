@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 
-const FilterBar = () => {
+const FilterBar = ({ onChange }) => {
   const buttonValues = ["Vse", "Prijmy", "Vydaje"];
   const [selected, setCurSelection] = useState(buttonValues[0]);
 
   const handleOptionChange = ({ target: { value } }) => {
     // setCurSelection(o.target.value); //other option
+    onChange(value);
     setCurSelection(value);
   };
 
