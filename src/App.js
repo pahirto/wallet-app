@@ -1,6 +1,20 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 
 import Transaction from "./components/Transaction";
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TransactionContainer = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const initList = [
   {
@@ -46,25 +60,27 @@ const App = () => {
   };
 
   const removeTransaction = id =>
-    (transactionList = transactionList.filter(o => o.id === id));
+    setTransactionList(transactionList.filter(o => o.id !== id));
 
   return (
-    <>
-      {transactionList.map(
-        ({ name, value, type, id, created, currency }, key) => (
-          <Transaction
-            name={name}
-            key={key}
-            value={value}
-            type={type}
-            id={id}
-            created={created}
-            currency={currency}
-          />
-        )
-      )}
-      <button onClick={handleClick}>Add transaction</button>
-    </>
+    <Container>
+      <TransactionContainer>
+        {transactionList.map(
+          ({ name, value, type, id, created, currency }, key) => (
+            <Transaction
+              name={name}
+              key={key}
+              value={value}
+              type={type}
+              id={id}
+              created={created}
+              currency={currency}
+            />
+          )
+        )}
+        <button onClick={handleClick}>Add transaction</button>
+      </TransactionContainer>
+    </Container>
   );
 };
 

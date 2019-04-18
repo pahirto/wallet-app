@@ -1,25 +1,50 @@
 import React, { useState } from "react";
 import { animationFrameScheduler } from "rxjs";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background-color: orange;
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ValueContainer = styled.div`
+  display: flex;
+  align-items: baseline;
+`;
+
+const CurrencyContainer = styled.div`
+  margin-left: 0.3rem;
+  font-size: 10px;
+`;
+
+const DetailContainer = styled.div`
+  height: ${({ showDetail }) => (showDetail ? "3rem" : "0")};
+  overflow: hidden;
+`;
 
 const Transaction = ({ name, value, type, id, created, currency }) => {
   const [showDetail, setShowDetail] = useState(animationFrameScheduler);
 
   return (
-    <div
-      onClick={() => setShowDetail(!showDetail)}
-      style={{ marginTop: "20px" }}
-    >
-      <div>{id}</div>
-      <div>{value}</div>
-      <div>{currency}</div>
-      <div>{name}</div>
-      {showDetail && (
+    <Container onClick={() => setShowDetail(!showDetail)}>
+      <ValueContainer>
+        <div>{value}</div>
+        <CurrencyContainer>
+          <div>{currency}</div>
+        </CurrencyContainer>
+      </ValueContainer>
+      <DetailContainer showDetail={showDetail}>
         <div>
           <div>{created}</div>
           <div>{type}</div>
         </div>
-      )}
-    </div>
+      </DetailContainer>
+    </Container>
   );
 };
 export default Transaction;
