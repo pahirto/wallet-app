@@ -1,15 +1,25 @@
 import React, { useState } from "react";
+import { animationFrameScheduler } from "rxjs";
 
-const Transaction = ({ value, currency }) => {
-  const [_value, setCount] = useState(value);
+const Transaction = ({ name, value, type, id, created, currency }) => {
+  const [showDetail, setShowDetail] = useState(animationFrameScheduler);
 
   return (
-    <div style={{ marginTop: "20px" }}>
-      <div>{_value}</div>
+    <div
+      onClick={() => setShowDetail(!showDetail)}
+      style={{ marginTop: "20px" }}
+    >
+      <div>{id}</div>
+      <div>{value}</div>
       <div>{currency}</div>
-      <button onClick={() => setCount(_value + 1)}>+</button>
+      <div>{name}</div>
+      {showDetail && (
+        <div>
+          <div>{created}</div>
+          <div>{type}</div>
+        </div>
+      )}
     </div>
   );
 };
-
 export default Transaction;
