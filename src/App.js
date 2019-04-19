@@ -75,6 +75,7 @@ const App = () => {
               id={id}
               created={created}
               currency={currency}
+              deleteTransaction={removeTransaction}
             />
           )
         )}

@@ -27,7 +27,15 @@ const DetailContainer = styled.div`
   overflow: hidden;
 `;
 
-const Transaction = ({ name, value, type, id, created, currency }) => {
+const Transaction = ({
+  name,
+  value,
+  type,
+  id,
+  created,
+  currency,
+  deleteTransaction
+}) => {
   const [showDetail, setShowDetail] = useState(animationFrameScheduler);
 
   return (
@@ -44,6 +52,7 @@ const Transaction = ({ name, value, type, id, created, currency }) => {
           <div>{type}</div>
         </div>
       </DetailContainer>
+      <button onClick={() => deleteTransaction(id)}>Delete</button>
     </Container>
   );
 };
