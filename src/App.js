@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import Transaction from "./components/Transaction";
-import FilterBar from "./components/FilterBar";
+import RadioButtonGroup from "./components/RadioButtonGroup";
+import Table from "./components/Table";
 
 const Container = styled.div`
   display: flex;
@@ -44,9 +45,33 @@ const initList = [
   }
 ];
 
+const mockData = () => {
+  return [
+    {
+      id: 1,
+      date: "2018-09-04",
+      label: "Rohliky",
+      amount: -20
+    },
+    {
+      id: 2,
+      date: "2018-10-04",
+      label: "Chleba",
+      amount: -30
+    },
+    {
+      id: 3,
+      date: "2018-09-25",
+      label: "Vyplata",
+      amount: 1000
+    }
+  ];
+};
+
 const App = () => {
   const [transactionList, setTransactionList] = useState(initList);
   const [curFilter, changeFilter] = useState("Vse");
+  const [data, setData] = useState(mockData());
 
   const handleClick = () => {
     const newId = transactionList[transactionList.length - 1].id + 1;
@@ -66,7 +91,7 @@ const App = () => {
   const removeTransaction = id =>
     setTransactionList(transactionList.filter(o => o.id !== id));
 
-  const filterHandler = ({ value }) => {
+  const filterHandler = value => {
     if (curFilter === "Vse") return true;
     else if (curFilter === "Prijmy") return value >= 0;
     else if (curFilter === "Vydaje") return value <= 0;
@@ -74,26 +99,51 @@ const App = () => {
   };
 
   return (
-    <Container>
-      <FilterBar onChange={changeFilterHandler} />
-      <TransactionContainer>
-        {transactionList
-          .filter(v => filterHandler(v))
-          .map(({ name, value, type, id, created, currency }, key) => (
-            <Transaction
-              name={name}
-              key={key}
-              value={value}
-              type={type}
-              id={id}
-              created={created}
-              currency={currency}
-              deleteTransaction={removeTransaction}
-            />
-          ))}
-        <button onClick={handleClick}>Add transaction</button>
-      </TransactionContainer>
-    </Container>
+    <>
+      <RadioButtonGroup
+        onChange={newVal => changeFilter(newVal)}
+        buttonLabels={["Vse", "Prijmy", "Vydaje"]}
+      />
+      <Table
+        data={data}
+        columns={[
+          {
+            Header: "Datum",
+            accessor: "date"
+          },
+          {
+            Header: "Nazev",
+            accessor: "label"
+          },
+          {
+            Header: "Castka",
+            accessor: "amount",
+            filterable: true,
+            filterMethod: filterHandler
+          }
+        ]}
+      />
+    </>
+    // <Container>
+    //   <RadioButtonGroup onChange={changeFilterHandler} />
+    //   <TransactionContainer>
+    //     {transactionList
+    //       .filter(v => filterHandler(v))
+    //       .map(({ name, value, type, id, created, currency }, key) => (
+    //         <Transaction
+    //           name={name}
+    //           key={key}
+    //           value={value}
+    //           type={type}
+    //           id={id}
+    //           created={created}
+    //           currency={currency}
+    //           deleteTransaction={removeTransaction}
+    //         />
+    //       ))}
+    //     <button onClick={handleClick}>Add transaction</button>
+    //   </TransactionContainer>
+    // </Container>
   );
 };
 
