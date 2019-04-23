@@ -12,9 +12,9 @@ const Table = ({ data, columns }) => {
     )
     .map((row, key) => (
       <tr key={key}>
-        {columns.map(({ accessor }, key) => (
-          <td key={key}>{row[accessor]}</td>
-        ))}
+        {columns.map(({ accessor, Cell = val => (val) }, key) => 
+                (<td key={key}>{Cell(row[accessor])}</td>)
+        )}
       </tr>
     ));
   return (
