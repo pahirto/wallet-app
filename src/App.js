@@ -5,7 +5,10 @@ import RadioButtonGroup from "./components/RadioButtonGroup";
 import Table from "./components/Table";
 import DeleteButton from "./components/DeleteButton";
 import ReactModal from "react-modal";
-import { useModal } from "react-modal-hook";
+
+import Transaction from "./components/Transaction";
+import AddTransactionModal from "./components/AddTransactionModal";
+import TransactionHeading from "./components/TransactionHeading";
 
 const Container = styled.div`
   display: flex;
@@ -26,19 +29,22 @@ const mockData = () => {
       id: 1,
       date: "2018-09-04",
       label: "Rohliky",
-      amount: -20
+      amount: -20,
+      currency: "CZK"
     },
     {
       id: 2,
       date: "2018-10-04",
       label: "Chleba",
-      amount: -30
+      amount: -30,
+      currency: "CZK"
     },
     {
       id: 3,
       date: "2018-09-25",
       label: "Vyplata",
-      amount: 1000
+      amount: 1000,
+      currency: "CZK"
     }
   ];
 };
@@ -51,56 +57,25 @@ const App = () => {
   });
   const [curFilter, changeFilter] = useState("Vse");
   const [data, setData] = useState(mockData());
-  const [inputData, setInputData] = useState("dfgdf");
 
-  const addRecord = o => {
+  const addRecord = (o, editable = false) => {
     o.id = data[data.length - 1].id + 1;
+    o.editable = editable;
     setData([...data, o]);
   };
 
-  const [showModal, hideModal] = useModal(() => {
-    const [date, setDate] = useState("2018 09 05");
-    const [label, setLabel] = useState("Label");
-    const [amount, setAmount] = useState("0");
-    const handleSaveButtonClicked = () => {
-      addRecord({ date: date, label: label, amount: amount });
-      hideModal();
-    };
+  const defaultItem = { date: "0000 00 00", label: "Label", amount: 0 };
 
-    return (
-      <ReactModal isOpen>
-        <h1>Přidat záznam</h1>
-        <label>
-          Datum:
-          <input
-            type="text"
-            value={date}
-            onChange={e => setDate(e.target.value)}
-          />
-        </label>
-        <label>
-          Co:
-          <input
-            type="text"
-            value={label}
-            onChange={e => setLabel(e.target.value)}
-          />
-        </label>
-        <label>
-          Částka:
-          <input
-            type="number"
-            value={amount}
-            onChange={e => setAmount(e.target.value)}
-          />
-        </label>
-        <button onClick={handleSaveButtonClicked}>Ulozit</button>
-        <button onClick={hideModal}>Zrušit</button>
-      </ReactModal>
-    );
-  }, [addRecord]);
+  const showModal = AddTransactionModal(addRecord);
 
   const removeRecord = id => setData(data.filter(o => o.id !== id));
+
+  const editRecord = newItem => {
+    // setData([...data.filter(o => o.id !== obj.id), obj]);
+    setData(
+      data.map(oldItem => (oldItem.id === newItem.id ? newItem : oldItem))
+    );
+  };
 
   const filterHandler = value => {
     if (curFilter === "Vse") return true;
@@ -109,39 +84,27 @@ const App = () => {
     else return true;
   };
 
-  const handleChange = event => setInputData(event.target.value);
-
   return (
     <>
       <RadioButtonGroup
         onChange={newVal => changeFilter(newVal)}
         buttonLabels={["Vse", "Prijmy", "Vydaje"]}
       />
-      <Table
-        data={data}
-        columns={[
-          {
-            Header: "Datum",
-            accessor: "date"
-          },
-          {
-            Header: "Nazev",
-            accessor: "label"
-          },
-          {
-            Header: "Castka",
-            accessor: "amount",
-            filterable: true,
-            filterMethod: filterHandler
-          },
-          {
-            Header: "Akce",
-            accessor: "id",
-            Cell: val => <DeleteButton rowId={val} onClick={removeRecord} />
-          }
-        ]}
-      />
-      <button onClick={showModal}>Přidat záznam</button>
+      <TransactionHeading />
+      {data
+        .filter(({ amount }) => filterHandler(amount))
+        .map((o, key) => (
+          <Transaction
+            model={o}
+            removeMethod={removeRecord}
+            key={key}
+            editMethod={editRecord}
+          />
+        ))}
+      <button onClick={showModal}>Přidat záznam - modal</button>
+      <button onClick={() => addRecord(defaultItem, true)}>
+        Přidat záznam
+      </button>
     </>
   );
 };

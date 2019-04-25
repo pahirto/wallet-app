@@ -3,16 +3,20 @@ import { animationFrameScheduler } from "rxjs";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: orange;
   width: 100%;
   margin-top: 1rem;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-bottom: 1px solid #ddd;
 `;
 
-const ValueContainer = styled.div`
+const CellContainer = styled.div`
+  margin-left: 1rem;
+  margin-right: 1rem;
+`;
+
+const AmountContainer = styled.div`
   display: flex;
   align-items: baseline;
 `;
@@ -22,37 +26,81 @@ const CurrencyContainer = styled.div`
   font-size: 10px;
 `;
 
-const DetailContainer = styled.div`
-  height: ${({ showDetail }) => (showDetail ? "3rem" : "0")};
-  overflow: hidden;
+const ActionContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
-const Transaction = ({
-  name,
-  value,
-  type,
-  id,
-  created,
-  currency,
-  deleteTransaction
-}) => {
-  const [showDetail, setShowDetail] = useState(animationFrameScheduler);
+/**
+ * I want from wrapper to make abstraction above decision about editable field this is reason for own useState and for useState in own Transaction
+ * I want to edit original data only if save button is clicked, o nthe other hand I want to have noneditable data corresponding with data model
+ */
+const Wrapper = ({ value: val, editable, handleEditValue }) => {
+  return editable ? (
+    (() => {
+      const [localVal, setLocalVal] = useState(val);
+      return (
+        <input
+          value={localVal}
+          onChange={e => {
+            setLocalVal(e.target.value);
+            handleEditValue(e.target.value);
+          }}
+        />
+      );
+    })()
+  ) : (
+    <div>{val}</div>
+  );
+};
+
+const Transaction = ({ model: o, removeMethod, editMethod }) => {
+  const [date, setDate] = useState(o.date);
+  const [label, setLabel] = useState(o.label);
+  const [amount, setAmount] = useState(o.amount);
+
+  const [editable, setEditable] = useState(o.editable);
+  const handleSetEditable = () => {
+    editable && editMethod({ ...o, date: date, label: label, amount: amount });
+    setEditable(!editable);
+  };
 
   return (
-    <Container onClick={() => setShowDetail(!showDetail)}>
-      <ValueContainer>
-        <div>{value}</div>
-        <CurrencyContainer>
-          <div>{currency}</div>
-        </CurrencyContainer>
-      </ValueContainer>
-      <DetailContainer showDetail={showDetail}>
-        <div>
-          <div>{created}</div>
-          <div>{type}</div>
-        </div>
-      </DetailContainer>
-      <button onClick={() => deleteTransaction(id)}>Delete</button>
+    <Container>
+      <CellContainer>
+        <Wrapper
+          value={o.date}
+          editable={editable}
+          handleEditValue={newVal => setDate(newVal)}
+        />
+      </CellContainer>
+      <CellContainer>
+        <Wrapper
+          value={o.label}
+          editable={editable}
+          handleEditValue={newVal => setLabel(newVal)}
+        />
+      </CellContainer>
+      <CellContainer>
+        <AmountContainer>
+          <Wrapper
+            value={o.amount}
+            editable={editable}
+            handleEditValue={newVal => setAmount(newVal)}
+          />
+          <CurrencyContainer>
+            <div>{o.currency}</div>
+          </CurrencyContainer>
+        </AmountContainer>
+      </CellContainer>
+      <CellContainer>
+        <ActionContainer>
+          <button onClick={() => removeMethod(o.id)}>Delete</button>
+          <button onClick={handleSetEditable}>
+            {editable ? "Save" : "Edit"}
+          </button>
+        </ActionContainer>
+      </CellContainer>
     </Container>
   );
 };
