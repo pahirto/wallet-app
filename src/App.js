@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import RadioButtonGroup from "./components/RadioButtonGroup";
 import Table from "./components/Table";
 import DeleteButton from "./components/DeleteButton";
+import ReactModal from "react-modal";
+import { useModal } from "react-modal-hook";
 
 const Container = styled.div`
   display: flex;
@@ -42,8 +44,51 @@ const mockData = () => {
 };
 
 const App = () => {
+  useEffect(() => {
+    return () => {
+      ReactModal.setAppElement("body");
+    };
+  });
   const [curFilter, changeFilter] = useState("Vse");
   const [data, setData] = useState(mockData());
+  const [inputData, setInputData] = useState("dfgdf");
+
+  const addRecord = o => {
+    // o.id = data[data.length - 1].id + 1;
+    // setData([...data, o]);
+    // hideModal();
+  };
+
+  const [showModal, hideModal] = useModal(() => {
+    const [date, setDate] = useState("2018 09 05");
+    const [label, setLabel] = useState("Label");
+    const [amount, setAmount] = useState("0");
+    const handleSubmit = () => {
+      addRecord({ date: date, label: label, amount: amount });
+    };
+
+    return (
+      <ReactModal isOpen>
+        <h1>Přidat záznam</h1>
+        <form onSubmit={handleSubmit}>
+          <label>
+            Datum:
+            <input type="text" value={date} onChange={setDate} />
+          </label>
+          <label>
+            Co:
+            <input type="text" value={label} onChange={setLabel} />
+          </label>
+          <label>
+            Částka:
+            <input type="number" value={amount} onChange={setAmount} />
+          </label>
+          <input type="submit" value="Uložit" />
+        </form>
+        <button onClick={hideModal}>Zrušit</button>
+      </ReactModal>
+    );
+  }, [addRecord]);
 
   const removeRecord = id => setData(data.filter(o => o.id !== id));
 
@@ -53,6 +98,8 @@ const App = () => {
     else if (curFilter === "Vydaje") return value <= 0;
     else return true;
   };
+
+  const handleChange = event => setInputData(event.target.value);
 
   return (
     <>
@@ -84,6 +131,9 @@ const App = () => {
           }
         ]}
       />
+      <button onClick={showModal}>Přidat záznam</button>
+      <input onChange={handleChange} value={inputData} />
+      <p>{inputData}</p>
     </>
   );
 };
