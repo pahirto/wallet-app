@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { ModalProvider } from "react-modal-hook";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
-  <ModalProvider>
+  <BrowserRouter>
     <App />
-  </ModalProvider>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 
