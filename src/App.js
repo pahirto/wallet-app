@@ -54,37 +54,47 @@ const App = () => {
   const [inputData, setInputData] = useState("dfgdf");
 
   const addRecord = o => {
-    // o.id = data[data.length - 1].id + 1;
-    // setData([...data, o]);
-    // hideModal();
+    o.id = data[data.length - 1].id + 1;
+    setData([...data, o]);
   };
 
   const [showModal, hideModal] = useModal(() => {
     const [date, setDate] = useState("2018 09 05");
     const [label, setLabel] = useState("Label");
     const [amount, setAmount] = useState("0");
-    const handleSubmit = () => {
+    const handleSaveButtonClicked = () => {
       addRecord({ date: date, label: label, amount: amount });
+      hideModal();
     };
 
     return (
       <ReactModal isOpen>
         <h1>Přidat záznam</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Datum:
-            <input type="text" value={date} onChange={setDate} />
-          </label>
-          <label>
-            Co:
-            <input type="text" value={label} onChange={setLabel} />
-          </label>
-          <label>
-            Částka:
-            <input type="number" value={amount} onChange={setAmount} />
-          </label>
-          <input type="submit" value="Uložit" />
-        </form>
+        <label>
+          Datum:
+          <input
+            type="text"
+            value={date}
+            onChange={e => setDate(e.target.value)}
+          />
+        </label>
+        <label>
+          Co:
+          <input
+            type="text"
+            value={label}
+            onChange={e => setLabel(e.target.value)}
+          />
+        </label>
+        <label>
+          Částka:
+          <input
+            type="number"
+            value={amount}
+            onChange={e => setAmount(e.target.value)}
+          />
+        </label>
+        <button onClick={handleSaveButtonClicked}>Ulozit</button>
         <button onClick={hideModal}>Zrušit</button>
       </ReactModal>
     );
@@ -132,8 +142,6 @@ const App = () => {
         ]}
       />
       <button onClick={showModal}>Přidat záznam</button>
-      <input onChange={handleChange} value={inputData} />
-      <p>{inputData}</p>
     </>
   );
 };
