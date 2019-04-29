@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import ReactModal from "react-modal";
 import { useModal } from "react-modal-hook";
+import moment from "moment";
+import { dateFormat } from "./Constants";
 
 const AddTransactionModal = addRecord => {
   const [showModal, hideModal] = useModal(() => {
-    const [date, setDate] = useState("2018 09 05");
+    const [date, setDate] = useState(moment().format(dateFormat));
     const [label, setLabel] = useState("Label");
     const [amount, setAmount] = useState("0");
     const [currency, setCurrency] = useState("CZK");
     const handleSaveButtonClicked = () => {
       addRecord({
-        date: date,
+        date: moment(date, dateFormat),
         label: label,
         amount: amount,
         currency: currency

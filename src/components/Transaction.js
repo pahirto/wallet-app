@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { animationFrameScheduler } from "rxjs";
 import styled from "styled-components";
+import moment from "moment";
+import { dateFormat } from "./Constants";
 
 const Container = styled.div`
   width: 100%;
@@ -69,9 +71,9 @@ const Transaction = ({ model: o, removeMethod, editMethod }) => {
     <Container>
       <CellContainer>
         <Wrapper
-          value={o.date}
+          value={moment(o.date).format(dateFormat)}
           editable={editable}
-          handleEditValue={newVal => setDate(newVal)}
+          handleEditValue={newVal => setDate(moment(newVal, dateFormat))}
         />
       </CellContainer>
       <CellContainer>
