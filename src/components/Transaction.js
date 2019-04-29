@@ -33,6 +33,10 @@ const ActionContainer = styled.div`
   align-items: center;
 `;
 
+const CancelButtonContainer = styled.div`
+  display: ${props => (props.visible ? "inline" : "none")};
+`;
+
 /**
  * I want from wrapper to make abstraction above decision about editable field this is reason for own useState and for useState in own Transaction
  * I want to edit original data only if save button is clicked, o nthe other hand I want to have noneditable data corresponding with data model
@@ -101,6 +105,10 @@ const Transaction = ({ model: o, removeMethod, editMethod }) => {
           <button onClick={handleSetEditable}>
             {editable ? "Save" : "Edit"}
           </button>
+
+          <CancelButtonContainer visible={editable}>
+            <button onClick={() => setEditable(false)}>Cancel</button>
+          </CancelButtonContainer>
         </ActionContainer>
       </CellContainer>
     </Container>
