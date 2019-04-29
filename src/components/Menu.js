@@ -17,6 +17,9 @@ const MenuItemContainer = styled.div`
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  &:hover {
+    background-color: #111;
+  }
 `;
 
 const Menu = () => {
@@ -28,9 +31,9 @@ const Menu = () => {
   return (
     <MenuContainer>
       {links.map(({ path, label }, key) => (
-        <MenuItemContainer key={key}>
-          <Link to={path}>{label}</Link>
-        </MenuItemContainer>
+        <Link to={path} key={key}>
+          <MenuItemContainer>{label}</MenuItemContainer>
+        </Link>
       ))}
     </MenuContainer>
   );
