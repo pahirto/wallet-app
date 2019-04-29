@@ -1,6 +1,6 @@
 import React from "react";
 
-const Overview = () => {
+const Overview = ({ data }) => {
   return (
     <>
       <h1>Header</h1>
