@@ -5,7 +5,7 @@ import ReactModal from "react-modal";
 
 import Transaction from "./Transaction";
 import AddTransactionModal from "./AddTransactionModal";
-import TransactionHeading from "./TransactionHeading";
+import ListHeading from "./ListHeading";
 import moment from "moment";
 
 const Transactions = ({ data, addRecord, removeRecord, editRecord }) => {
@@ -32,7 +32,7 @@ const Transactions = ({ data, addRecord, removeRecord, editRecord }) => {
         onChange={newVal => changeFilter(newVal)}
         buttonLabels={["Vse", "Prijmy", "Vydaje"]}
       />
-      <TransactionHeading />
+      <ListHeading values={["Datum", "Jmeno", "Castka", "Akce"]} />
       {data
         .filter(({ amount }) => filterHandler(amount))
         .map((o, key) => (

@@ -10,21 +10,21 @@ const mockData = () => {
   return [
     {
       id: 1,
-      date: new Date("2011-04-11T10:20:30Z"),
+      date: new Date("2019-04-11T10:20:30Z"),
       label: "Rohliky",
       amount: -20,
       currency: "CZK"
     },
     {
       id: 2,
-      date: new Date("2011-04-12T10:20:30Z"),
+      date: new Date("2019-04-12T10:20:30Z"),
       label: "Chleba",
       amount: -30,
       currency: "CZK"
     },
     {
       id: 3,
-      date: new Date("2011-04-13T10:20:30Z"),
+      date: new Date("2019-04-29T10:20:30Z"),
       label: "Vyplata",
       amount: 1000,
       currency: "CZK"

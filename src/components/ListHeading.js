@@ -25,23 +25,14 @@ const CurrencyContainer = styled.div`
   font-size: 10px;
 `;
 
-const TransactionHeading = () => {
+const ListHeading = ({ values }) => {
   return (
     <Container>
-      <CellContainer>
-        <div>Datum</div>
-      </CellContainer>
-      <CellContainer>
-        <div>Jmeno</div>
-      </CellContainer>
-      <CellContainer>
-        <div>Castka</div>
-      </CellContainer>
-      <CellContainer>
-        <div>Akce</div>
-      </CellContainer>
+      {values.map((val, key) => (
+        <CellContainer key={key}>{val}</CellContainer>
+      ))}
     </Container>
   );
 };
 
-export default TransactionHeading;
+export default ListHeading;
