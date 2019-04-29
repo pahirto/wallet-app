@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Container = styled.div`
   display: flex;
   align-items: baseline;
+  justify-content: center;
 `;
 
 const FormContainer = styled.div`

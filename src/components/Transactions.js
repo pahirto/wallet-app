@@ -2,11 +2,20 @@ import React, { useState, useEffect } from "react";
 
 import RadioButtonGroup from "./RadioButtonGroup";
 import ReactModal from "react-modal";
+import styled from "styled-components";
 
 import Transaction from "./Transaction";
 import AddTransactionModal from "./AddTransactionModal";
 import ListHeading from "./ListHeading";
 import moment from "moment";
+import Button from "./Button";
+
+const ButtonContainer = styled.div`
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+`;
 
 const Transactions = ({ data, addRecord, removeRecord, editRecord }) => {
   useEffect(() => {
@@ -43,10 +52,13 @@ const Transactions = ({ data, addRecord, removeRecord, editRecord }) => {
             editMethod={editRecord}
           />
         ))}
-      <button onClick={showModal}>Přidat záznam - modal</button>
-      <button onClick={() => addRecord(defaultItem, true)}>
-        Přidat záznam
-      </button>
+      <ButtonContainer>
+        <Button onClick={showModal} value="Přidat záznam - modal" />
+        <Button
+          onClick={() => addRecord(defaultItem, true)}
+          value="Přidat záznam"
+        />
+      </ButtonContainer>
     </>
   );
 };
