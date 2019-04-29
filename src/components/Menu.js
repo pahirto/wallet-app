@@ -27,8 +27,8 @@ const Menu = () => {
 
   return (
     <MenuContainer>
-      {links.map(({ path, label }) => (
-        <MenuItemContainer>
+      {links.map(({ path, label }, key) => (
+        <MenuItemContainer key={key}>
           <Link to={path}>{label}</Link>
         </MenuItemContainer>
       ))}
