@@ -3,17 +3,15 @@ import ListHeading from "./ListHeading";
 import ListItem from "./ListItem";
 import moment from "moment";
 import DatePicker from "react-datepicker";
-import styled from "styled-components";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { dateFormat, dateFormatForDatepicker } from "./Constants";
+import { dateFormatForDatepicker } from "./Constants";
 
 const getStat = (data, filterDate, filterAmount) => {
   const res = data
     .filter(({ date }) => filterDate(date))
     .filter(({ amount }) => filterAmount(amount))
     .reduce((total, { amount }) => total + amount, 0);
-  console.log(res);
   return res;
 };
 
@@ -57,7 +55,8 @@ const Overview = ({ data }) => {
         dateRangeComponent={() => (
           <DatePicker
             selected={monthDate}
-            dateFormat="MMMM yyyy"
+            dateFormat="MM yyyy"
+            showMonthYearPicker
             onChange={date => setMonthDate(date)}
           />
         )}

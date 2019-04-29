@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Transactions from "./components/Transactions";
 import Overview from "./components/Overview";
-import { Link } from "react-router-dom";
 
 import Menu from "./components/Menu";
 

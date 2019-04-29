@@ -13,16 +13,7 @@ const Container = styled.div`
 const CellContainer = styled.div`
   margin-left: 1rem;
   margin-right: 1rem;
-`;
-
-const AmountContainer = styled.div`
-  display: flex;
-  align-items: baseline;
-`;
-
-const CurrencyContainer = styled.div`
-  margin-left: 0.3rem;
-  font-size: 10px;
+  font-weight: bold;
 `;
 
 const ListHeading = ({ values }) => {

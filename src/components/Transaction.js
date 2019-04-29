@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { animationFrameScheduler } from "rxjs";
 import styled from "styled-components";
 import moment from "moment";
 import { dateFormat } from "./Constants";

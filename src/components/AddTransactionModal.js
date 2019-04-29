@@ -9,7 +9,7 @@ const AddTransactionModal = addRecord => {
     const [date, setDate] = useState(moment().format(dateFormat));
     const [label, setLabel] = useState("Label");
     const [amount, setAmount] = useState("0");
-    const [currency, setCurrency] = useState("CZK");
+    const [currency] = useState("CZK");
     const handleSaveButtonClicked = () => {
       addRecord({
         date: moment(date, dateFormat),
