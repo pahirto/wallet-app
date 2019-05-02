@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.button`
-  background-color: #555555; /* Black */
+const Button = styled.button`
+  background-color: #555555;
   border: none;
   color: white;
   padding: 5px 15px;
@@ -15,9 +15,5 @@ const Container = styled.button`
     background-color: #111;
   }
 `;
-
-const Button = ({ onClick, value }) => {
-  return <Container onClick={onClick}>{value}</Container>;
-};
 
 export default Button;

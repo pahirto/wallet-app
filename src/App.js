@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import Transactions from "./components/Transactions";
+import TransactionList from "./components/TransactionList";
 import Overview from "./components/Overview";
 
 import Menu from "./components/Menu";
@@ -56,7 +56,7 @@ const App = () => {
         <Route
           path="/"
           render={() => (
-            <Transactions
+            <TransactionList
               data={data}
               addRecord={addRecord}
               removeRecord={removeRecord}
