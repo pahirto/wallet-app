@@ -8,16 +8,16 @@
       "currency": "CZK"
     },
     {
-      "date": "2019-05-03T12:14:54.499Z",
+      "date": "2019-05-03T12:14:00.000Z",
       "label": "Label",
-      "amount": 0,
+      "amount": "2",
       "id": 4,
       "currency": "CZK"
     },
     {
-      "date": "2019-05-03T12:14:55.525Z",
+      "date": "2019-05-03T12:14:00.000Z",
       "label": "Label",
-      "amount": 0,
+      "amount": "3",
       "id": 5,
       "currency": "CZK"
     },

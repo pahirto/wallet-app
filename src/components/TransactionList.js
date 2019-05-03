@@ -17,25 +17,31 @@ const ButtonContainer = styled.div`
   flex-direction: row;
 `;
 
+const filterAccordingToAmount = (curFilterValue, amount) => {
+  let res;
+  if (curFilterValue === "Vse") {
+    res = true;
+  } else if (curFilterValue === "Prijmy") {
+    res = amount >= 0;
+  } else if (curFilterValue === "Vydaje") {
+    res = amount <= 0;
+  }
+  console.log(
+    "curFilterValue:" +
+      curFilterValue +
+      " amount: " +
+      amount +
+      " take it: " +
+      res
+  );
+  return res;
+};
+
 const TransactionList = ({ data, addRecord, removeRecord, editRecord }) => {
   const [curFilter, changeFilter] = useState("Vse");
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const defaultItem = { date: moment(), label: "Label", amount: 0 };
-  const filterHandler = amount => {
-    let res;
-    if (curFilter === "Vse") {
-      res = true;
-    } else if (curFilter === "Prijmy") {
-      res = amount >= 0;
-    } else if (curFilter === "Vydaje") {
-      res = amount <= 0;
-    }
-    console.log(
-      "curFilter:" + curFilter + " amount: " + amount + " take it: " + res
-    );
-    return res;
-  };
 
   return (
     <>
@@ -50,12 +56,12 @@ const TransactionList = ({ data, addRecord, removeRecord, editRecord }) => {
       />
       <ListHeading values={["Datum", "Jmeno", "Castka", "Akce"]} />
       {data
-        .filter(({ amount }) => filterHandler(amount))
+        .filter(({ amount }) => filterAccordingToAmount(curFilter, amount))
         .map((record, key) => (
           <Transaction
+            key={key}
             record={record}
             removeRecordMethod={removeRecord}
-            key={key}
             editRecordMethod={editRecord}
           />
         ))}

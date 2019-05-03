@@ -47,6 +47,13 @@ const Transaction = ({
   const [amount, setAmount] = useState(record.amount);
 
   const [editable, setEditable] = useState(creating);
+
+  const updateLocalRecord = () => {
+    setDate(moment(record.date).format(dateFormat));
+    setLabel(record.label);
+    setAmount(record.amount);
+  };
+
   const handleSetEditable = () => {
     editable &&
       editRecordMethod({
@@ -55,6 +62,7 @@ const Transaction = ({
         label: label,
         amount: amount
       });
+    !editable && updateLocalRecord();
     setEditable(!editable);
   };
 
@@ -64,14 +72,14 @@ const Transaction = ({
         {editable ? (
           <input value={date} onChange={e => setDate(e.target.value)} />
         ) : (
-          <div>{date}</div>
+          <div>{moment(record.date).format(dateFormat)}</div>
         )}
       </CellContainer>
       <CellContainer>
         {editable ? (
           <input value={label} onChange={e => setLabel(e.target.value)} />
         ) : (
-          <div>{label}</div>
+          <div>{record.label}</div>
         )}
       </CellContainer>
       <CellContainer>
@@ -79,7 +87,7 @@ const Transaction = ({
           {editable ? (
             <input value={amount} onChange={e => setAmount(e.target.value)} />
           ) : (
-            <div>{amount}</div>
+            <div>{record.amount}</div>
           )}
           <CurrencyContainer>
             <div>{record.currency}</div>
