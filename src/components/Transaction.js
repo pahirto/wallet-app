@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { dateFormat } from "./Constants";
+import { Grid, Cell } from "styled-css-grid";
 
 const Container = styled.div`
   width: 100%;
@@ -67,46 +68,58 @@ const Transaction = ({
   };
 
   return (
-    <Container>
-      <CellContainer>
-        {editable ? (
-          <input value={date} onChange={e => setDate(e.target.value)} />
-        ) : (
-          <div>{moment(record.date).format(dateFormat)}</div>
-        )}
-      </CellContainer>
-      <CellContainer>
-        {editable ? (
-          <input value={label} onChange={e => setLabel(e.target.value)} />
-        ) : (
-          <div>{record.label}</div>
-        )}
-      </CellContainer>
-      <CellContainer>
-        <AmountContainer>
+    <>
+      <Cell>
+        <CellContainer>
           {editable ? (
-            <input value={amount} onChange={e => setAmount(e.target.value)} />
+            <input value={date} onChange={e => setDate(e.target.value)} />
           ) : (
-            <div>{record.amount}</div>
+            <div>{moment(record.date).format(dateFormat)}</div>
           )}
-          <CurrencyContainer>
-            <div>{record.currency}</div>
-          </CurrencyContainer>
-        </AmountContainer>
-      </CellContainer>
-      <CellContainer>
-        <ActionContainer>
-          <button onClick={() => removeRecordMethod(record.id)}>Delete</button>
-          <button onClick={handleSetEditable}>
-            {editable ? "Save" : "Edit"}
-          </button>
+        </CellContainer>
+      </Cell>
+      <Cell>
+        <CellContainer>
+          {editable ? (
+            <input value={label} onChange={e => setLabel(e.target.value)} />
+          ) : (
+            <div>{record.label}</div>
+          )}
+        </CellContainer>
+      </Cell>
+      <Cell>
+        <CellContainer>
+          <AmountContainer>
+            {editable ? (
+              <input value={amount} onChange={e => setAmount(e.target.value)} />
+            ) : (
+              <>
+                <div>{record.amount}</div>
+                <CurrencyContainer>
+                  <div>{record.currency}</div>
+                </CurrencyContainer>
+              </>
+            )}
+          </AmountContainer>
+        </CellContainer>
+      </Cell>
+      <Cell>
+        <CellContainer>
+          <ActionContainer>
+            <button onClick={() => removeRecordMethod(record.id)}>
+              Delete
+            </button>
+            <button onClick={handleSetEditable}>
+              {editable ? "Save" : "Edit"}
+            </button>
 
-          <CancelButtonContainer visible={editable}>
-            <button onClick={() => setEditable(false)}>Cancel</button>
-          </CancelButtonContainer>
-        </ActionContainer>
-      </CellContainer>
-    </Container>
+            <CancelButtonContainer visible={editable}>
+              <button onClick={() => setEditable(false)}>Cancel</button>
+            </CancelButtonContainer>
+          </ActionContainer>
+        </CellContainer>
+      </Cell>
+    </>
   );
 };
 export default Transaction;

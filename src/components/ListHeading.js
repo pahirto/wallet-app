@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Grid, Cell } from "styled-css-grid";
 
 const Container = styled.div`
   width: 100%;
@@ -18,11 +19,13 @@ const CellContainer = styled.div`
 
 const ListHeading = ({ values }) => {
   return (
-    <Container>
+    <>
       {values.map((val, key) => (
-        <CellContainer key={key}>{val}</CellContainer>
+        <Cell key={key}>
+          <CellContainer>{val}</CellContainer>
+        </Cell>
       ))}
-    </Container>
+    </>
   );
 };
 

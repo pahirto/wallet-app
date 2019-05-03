@@ -34,6 +34,13 @@
       "amount": "25",
       "id": 7,
       "currency": "CZK"
+    },
+    {
+      "date": "2019-05-03T16:46:45.821Z",
+      "label": "Label",
+      "amount": 0,
+      "id": 8,
+      "currency": "CZK"
     }
   ]
 }

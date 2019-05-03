@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import RadioButtonGroup from "./RadioButtonGroup";
 import ReactModal from "react-modal";
 import styled from "styled-components";
+import { Grid, Cell } from "styled-css-grid";
 
 import Transaction from "./Transaction";
 import AddTransactionModal from "./AddTransactionModal";
@@ -16,6 +17,17 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: row;
 `;
+
+const Container = styled.div`
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+`;
+
+const listHeadingValues = ["Datum", "Jmeno", "Castka", "Akce"];
 
 const filterAccordingToAmount = (curFilterValue, amount) => {
   let res;
@@ -54,17 +66,22 @@ const TransactionList = ({ data, addRecord, removeRecord, editRecord }) => {
         onChange={newVal => changeFilter(newVal)}
         buttonLabels={["Vse", "Prijmy", "Vydaje"]}
       />
-      <ListHeading values={["Datum", "Jmeno", "Castka", "Akce"]} />
-      {data
-        .filter(({ amount }) => filterAccordingToAmount(curFilter, amount))
-        .map((record, key) => (
-          <Transaction
-            key={key}
-            record={record}
-            removeRecordMethod={removeRecord}
-            editRecordMethod={editRecord}
-          />
-        ))}
+
+      <Container>
+        <Grid columns={listHeadingValues.length} gap="2px">
+          <ListHeading values={listHeadingValues} />
+          {data
+            .filter(({ amount }) => filterAccordingToAmount(curFilter, amount))
+            .map((record, key) => (
+              <Transaction
+                key={key}
+                record={record}
+                removeRecordMethod={removeRecord}
+                editRecordMethod={editRecord}
+              />
+            ))}
+        </Grid>
+      </Container>
       <ButtonContainer>
         <Button onClick={() => setModalIsOpen(true)}>
           Přidat záznam - modal
