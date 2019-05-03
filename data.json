@@ -2,39 +2,38 @@
   "transactions": [
     {
       "id": 3,
-      "date": "2019-04-29T10:20:30Z",
+      "date": "2019-05-02T18:05:44.605Z",
       "label": "Vyplata",
       "amount": 1000,
-      "currency": "CZK",
-      "editable": false
+      "currency": "CZK"
     },
     {
-      "date": "2019-05-02T18:05:44.605Z",
+      "date": "2019-05-03T12:14:54.499Z",
       "label": "Label",
       "amount": 0,
       "id": 4,
-      "editable": false
+      "currency": "CZK"
     },
     {
-      "date": "2019-05-02T18:06:08.170Z",
+      "date": "2019-05-03T12:14:55.525Z",
       "label": "Label",
       "amount": 0,
       "id": 5,
-      "editable": false
+      "currency": "CZK"
     },
     {
-      "date": "2019-05-02T18:18:22.506Z",
+      "date": "2019-05-03T12:14:00.000Z",
       "label": "Label",
-      "amount": 0,
+      "amount": "-25",
       "id": 6,
-      "editable": true
+      "currency": "CZK"
     },
     {
-      "date": "2019-05-02T18:19:28.910Z",
+      "date": "2019-05-03T12:14:00.000Z",
       "label": "Label",
-      "amount": "2000",
+      "amount": "25",
       "id": 7,
-      "editable": false
+      "currency": "CZK"
     }
   ]
 }

@@ -12,32 +12,6 @@ import {
   addTransaction
 } from "./lib/getTransactions";
 
-const mockData = () => {
-  return [
-    {
-      id: 1,
-      date: new Date("2019-04-11T10:20:30Z"),
-      label: "Rohliky",
-      amount: -20,
-      currency: "CZK"
-    },
-    {
-      id: 2,
-      date: new Date("2019-04-12T10:20:30Z"),
-      label: "Chleba",
-      amount: -30,
-      currency: "CZK"
-    },
-    {
-      id: 3,
-      date: new Date("2019-04-29T10:20:30Z"),
-      label: "Vyplata",
-      amount: 1000,
-      currency: "CZK"
-    }
-  ];
-};
-
 const App = () => {
   const [data, setData] = useState([]);
 
@@ -45,23 +19,17 @@ const App = () => {
     getTransactions().then(data => setData(data));
   }, []);
 
-  const addRecord = (o, editable = false) => {
-    o.id = data[data.length - 1].id + 1;
-    o.editable = editable;
-
-    // setData([...data, o]);
-    addTransaction(o).then(setData);
+  const addRecord = record => {
+    record.id = data[data.length - 1].id + 1;
+    record.currency = "CZK";
+    addTransaction(record).then(setData);
   };
 
   const removeRecord = id => {
-    // setData(data.filter(o => o.id !== id));
     deleteTransaction(id).then(setData);
   };
 
   const editRecord = newItem => {
-    // setData(
-    //   data.map(oldItem => (oldItem.id === newItem.id ? newItem : oldItem))
-    // );
     updateTransaction(newItem).then(setData);
   };
 

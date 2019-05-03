@@ -36,71 +36,59 @@ const CancelButtonContainer = styled.div`
   display: ${props => (props.visible ? "inline" : "none")};
 `;
 
-/**
- * I want from wrapper to make abstraction above decision about editable field this is reason for own useState and for useState in own Transaction
- * I want to edit original data only if save button is clicked, o nthe other hand I want to have noneditable data corresponding with data model
- */
-const Wrapper = ({ value: val, editable, handleEditValue }) => {
-  return editable ? (
-    (() => {
-      const [localVal, setLocalVal] = useState(val);
-      return (
-        <input
-          value={localVal}
-          onChange={e => {
-            setLocalVal(e.target.value);
-            handleEditValue(e.target.value);
-          }}
-        />
-      );
-    })()
-  ) : (
-    <div>{val}</div>
-  );
-};
+const Transaction = ({
+  record,
+  removeRecordMethod,
+  editRecordMethod,
+  creating = false
+}) => {
+  const [date, setDate] = useState(moment(record.date).format(dateFormat));
+  const [label, setLabel] = useState(record.label);
+  const [amount, setAmount] = useState(record.amount);
 
-const Transaction = ({ model: o, removeMethod, editMethod }) => {
-  const [date, setDate] = useState(o.date);
-  const [label, setLabel] = useState(o.label);
-  const [amount, setAmount] = useState(o.amount);
-
-  const [editable, setEditable] = useState(o.editable);
+  const [editable, setEditable] = useState(creating);
   const handleSetEditable = () => {
-    editable && editMethod({ ...o, date: date, label: label, amount: amount });
+    editable &&
+      editRecordMethod({
+        ...record,
+        date: moment(date, dateFormat),
+        label: label,
+        amount: amount
+      });
     setEditable(!editable);
   };
 
   return (
     <Container>
       <CellContainer>
-        <Wrapper
-          value={moment(o.date).format(dateFormat)}
-          editable={editable}
-          handleEditValue={newVal => setDate(moment(newVal, dateFormat))}
-        />
+        {editable ? (
+          <input value={date} onChange={e => setDate(e.target.value)} />
+        ) : (
+          <div>{date}</div>
+        )}
       </CellContainer>
       <CellContainer>
-        <Wrapper
-          value={o.label}
-          editable={editable}
-          handleEditValue={newVal => setLabel(newVal)}
-        />
+        {editable ? (
+          <input value={label} onChange={e => setLabel(e.target.value)} />
+        ) : (
+          <div>{label}</div>
+        )}
       </CellContainer>
       <CellContainer>
         <AmountContainer>
-          <Wrapper
-            value={o.amount}
-            editable={editable}
-            handleEditValue={newVal => setAmount(newVal)}
-          />
+          {editable ? (
+            <input value={amount} onChange={e => setAmount(e.target.value)} />
+          ) : (
+            <div>{amount}</div>
+          )}
           <CurrencyContainer>
-            <div>{o.currency}</div>
+            <div>{record.currency}</div>
           </CurrencyContainer>
         </AmountContainer>
       </CellContainer>
       <CellContainer>
         <ActionContainer>
-          <button onClick={() => removeMethod(o.id)}>Delete</button>
+          <button onClick={() => removeRecordMethod(record.id)}>Delete</button>
           <button onClick={handleSetEditable}>
             {editable ? "Save" : "Edit"}
           </button>

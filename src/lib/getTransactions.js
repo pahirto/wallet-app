@@ -13,8 +13,7 @@ const transformData = data =>
     editable: false
   }));
 
-const getTransactions = () =>
-  api.get("/").then(response => transformData(response.data));
+const getTransactions = () => api.get("/").then(response => response.data);
 const deleteTransaction = id =>
   api.delete(`/${id}`).then(() => getTransactions());
 const updateTransaction = object =>
