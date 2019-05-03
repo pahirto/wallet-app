@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import TransactionList from "./components/TransactionList";
 import Overview from "./components/Overview";
+import axios from "axios";
 
 import Menu from "./components/Menu";
+import {
+  getTransactions,
+  deleteTransaction,
+  updateTransaction,
+  addTransaction
+} from "./lib/getTransactions";
 
 const mockData = () => {
   return [
@@ -32,20 +39,30 @@ const mockData = () => {
 };
 
 const App = () => {
-  const [data, setData] = useState(mockData());
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getTransactions().then(data => setData(data));
+  }, []);
 
   const addRecord = (o, editable = false) => {
     o.id = data[data.length - 1].id + 1;
     o.editable = editable;
-    setData([...data, o]);
+
+    // setData([...data, o]);
+    addTransaction(o).then(setData);
   };
 
-  const removeRecord = id => setData(data.filter(o => o.id !== id));
+  const removeRecord = id => {
+    // setData(data.filter(o => o.id !== id));
+    deleteTransaction(id).then(setData);
+  };
 
   const editRecord = newItem => {
-    setData(
-      data.map(oldItem => (oldItem.id === newItem.id ? newItem : oldItem))
-    );
+    // setData(
+    //   data.map(oldItem => (oldItem.id === newItem.id ? newItem : oldItem))
+    // );
+    updateTransaction(newItem).then(setData);
   };
 
   return (
