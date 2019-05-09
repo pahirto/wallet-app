@@ -1,14 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
-const Container = styled.div`
-  width: 100%;
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-`;
+import { Grid, Cell } from "styled-css-grid";
 
 const CellContainer = styled.div`
   margin-left: 1rem;
@@ -17,13 +9,23 @@ const CellContainer = styled.div`
 
 const ListItem = ({ type, dateRangeComponent, income, outcome, overall }) => {
   return (
-    <Container>
-      <CellContainer>{type}</CellContainer>
-      <CellContainer>{dateRangeComponent()}</CellContainer>
-      <CellContainer>{income}</CellContainer>
-      <CellContainer>{outcome}</CellContainer>
-      <CellContainer>{overall}</CellContainer>
-    </Container>
+    <>
+      <Cell>
+        <CellContainer>{type}</CellContainer>
+      </Cell>
+      <Cell>
+        <CellContainer>{dateRangeComponent()}</CellContainer>
+      </Cell>
+      <Cell>
+        <CellContainer>{income}</CellContainer>
+      </Cell>
+      <Cell>
+        <CellContainer>{outcome}</CellContainer>
+      </Cell>
+      <Cell>
+        <CellContainer>{overall}</CellContainer>
+      </Cell>
+    </>
   );
 };
 

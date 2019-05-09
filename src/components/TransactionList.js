@@ -38,14 +38,6 @@ const filterAccordingToAmount = (curFilterValue, amount) => {
   } else if (curFilterValue === "Vydaje") {
     res = amount <= 0;
   }
-  console.log(
-    "curFilterValue:" +
-      curFilterValue +
-      " amount: " +
-      amount +
-      " take it: " +
-      res
-  );
   return res;
 };
 
