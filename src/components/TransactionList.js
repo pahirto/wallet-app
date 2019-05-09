@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import RadioButtonGroup from "./RadioButtonGroup";
-import ReactModal from "react-modal";
 import styled from "styled-components";
-import { Grid, Cell } from "styled-css-grid";
+import { Grid } from "styled-css-grid";
 
 import Transaction from "./Transaction";
 import AddTransactionModal from "./AddTransactionModal";

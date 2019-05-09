@@ -3,7 +3,7 @@ import ListHeading from "./ListHeading";
 import ListItem from "./ListItem";
 import moment from "moment";
 import DatePicker from "react-datepicker";
-import { Grid, Cell } from "styled-css-grid";
+import { Grid } from "styled-css-grid";
 import styled from "styled-components";
 
 import "react-datepicker/dist/react-datepicker.css";

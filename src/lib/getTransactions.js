@@ -6,13 +6,6 @@ const api = axios.create({
   headers: { "X-Customer-Header": "foobar" }
 });
 
-const transformData = data =>
-  data.map(record => ({
-    ...record,
-    date: new Date(record.date),
-    editable: false
-  }));
-
 const getTransactions = () => api.get("/").then(response => response.data);
 const deleteTransaction = id =>
   api.delete(`/${id}`).then(() => getTransactions());

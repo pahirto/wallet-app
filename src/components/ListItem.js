@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Grid, Cell } from "styled-css-grid";
+import { Cell } from "styled-css-grid";
 
 const CellContainer = styled.div`
   margin-left: 1rem;

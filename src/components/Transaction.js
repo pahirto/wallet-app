@@ -2,16 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { dateFormat } from "./Constants";
-import { Grid, Cell } from "styled-css-grid";
-
-const Container = styled.div`
-  width: 100%;
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-`;
+import { Cell } from "styled-css-grid";
 
 const CellContainer = styled.div`
   margin-left: 1rem;
