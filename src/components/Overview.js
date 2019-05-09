@@ -5,6 +5,8 @@ import moment from "moment";
 import DatePicker from "react-datepicker";
 import { Grid } from "styled-css-grid";
 import styled from "styled-components";
+import { arrayOf } from "prop-types";
+import TransactionType from "../Types/TransactionType";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { dateFormatForDatepicker } from "./Constants";
@@ -103,6 +105,10 @@ const Overview = ({ data }) => {
       </Container>
     </>
   );
+};
+
+Overview.propTypes = {
+  data: arrayOf(TransactionType)
 };
 
 export default Overview;
