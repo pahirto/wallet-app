@@ -10,14 +10,14 @@
     {
       "date": "2019-05-03T12:14:00.000Z",
       "label": "Label",
-      "amount": 3,
+      "amount": -3,
       "id": 5,
       "currency": "CZK"
     },
     {
       "date": "2019-05-03T12:14:00.000Z",
       "label": "Label",
-      "amount": "+++++",
+      "amount": 54556,
       "id": 6,
       "currency": "CZK"
     },

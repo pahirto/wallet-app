@@ -83,7 +83,16 @@ const Transaction = ({
         <CellContainer>
           <AmountContainer>
             {editable ? (
-              <input value={amount} onChange={e => setAmount(e.target.value)} />
+              <input
+                value={amount}
+                onChange={e =>
+                  e.target.validity.valid
+                    ? setAmount(Number(e.target.value))
+                    : e.target.value
+                }
+                type="text"
+                pattern="-?[0-9]*"
+              />
             ) : (
               <>
                 <div>{record.amount}</div>
