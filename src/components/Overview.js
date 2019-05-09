@@ -20,13 +20,11 @@ const Container = styled.div`
   border-bottom: 1px solid #ddd;
 `;
 
-const getStat = (data, filterDate, filterAmount) => {
-  const res = data
+const getStat = (data, filterDate, filterAmount) =>
+  data
     .filter(({ date }) => filterDate(date))
     .filter(({ amount }) => filterAmount(amount))
     .reduce((total, { amount }) => total + amount, 0);
-  return res;
-};
 
 const Overview = ({ data }) => {
   const [oneDayOverviewDate, setOneDayOverviewDate] = useState(new Date());

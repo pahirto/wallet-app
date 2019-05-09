@@ -1,13 +1,6 @@
 {
   "transactions": [
     {
-      "id": 3,
-      "date": "2019-05-02T18:05:00.000Z",
-      "label": "Vyplata2",
-      "amount": 10005,
-      "currency": "CZK"
-    },
-    {
       "date": "2019-05-03T12:14:00.000Z",
       "label": "Label",
       "amount": 2,
@@ -24,7 +17,7 @@
     {
       "date": "2019-05-03T12:14:00.000Z",
       "label": "Label",
-      "amount": -25,
+      "amount": "+++++",
       "id": 6,
       "currency": "CZK"
     },
