@@ -1,48 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import TransactionList from "./components/TransactionList";
 import Overview from "./components/Overview";
-import axios from "axios";
 
 import Menu from "./components/Menu";
 import {
-  getTransactions,
   deleteTransaction,
   updateTransaction,
   addTransaction
 } from "./lib/getTransactions";
+import useTransactions from "./components/useTransactions";
 
 const App = () => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    getTransactions().then(data => setData(data));
-  }, []);
+  const [transactions, setTransactions] = useTransactions();
 
   const addRecord = record => {
-    record.id = data[data.length - 1].id + 1;
+    record.id = transactions[transactions.length - 1].id + 1;
     record.currency = "CZK";
-    addTransaction(record).then(setData);
+    addTransaction(record).then(setTransactions);
   };
 
   const removeRecord = id => {
-    deleteTransaction(id).then(setData);
+    deleteTransaction(id).then(setTransactions);
   };
 
   const editRecord = newItem => {
-    updateTransaction(newItem).then(setData);
+    updateTransaction(newItem).then(setTransactions);
   };
 
   return (
     <>
       <Menu />
       <Switch>
-        <Route path="/overview" render={() => <Overview data={data} />} />
+        <Route
+          path="/overview"
+          render={() => <Overview data={transactions} />}
+        />
         <Route
           path="/"
           render={() => (
             <TransactionList
-              data={data}
+              data={transactions}
               addRecord={addRecord}
               removeRecord={removeRecord}
               editRecord={editRecord}
